@@ -1,0 +1,57 @@
+import React, { useState } from "react";
+import Header from "./Header";
+
+const Login = () => {
+  const [isSignIn, setIsSignIn] = useState(true);
+  const handleSignUp = () => {
+    setIsSignIn(!isSignIn);
+  };
+  return (
+    <div>
+      <Header />
+      <div className="absolute">
+        <img
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/3c5e10eb-4b8f-4f6d-bc86-0087cf2c6e8c/web/IN-en-20250707-TRIFECTA-perspective_06686b82-c2e5-4118-ab7b-d575f79b304b_small.jpg"
+          alt=""
+        />
+      </div>
+      <form
+        action=""
+        onClick={(e) => e.target.preventDefault}
+        className="bg-black absolute  w-4/12 p-12 my-32 mx-auto left-0 right-0 opacity-80 text-white rounded-lg"
+      >
+        <h1 className="font-bold text-3xl ">
+          {isSignIn ? "Sign In" : "Sign Up"}
+        </h1>
+        {!isSignIn && (
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="p-4 my-4 w-full rounded-lg  bg-gray-900"
+          />
+        )}
+        <input
+          type="text"
+          placeholder="Email or mobile number"
+          className="p-4 my-4 w-full rounded-lg  bg-gray-900"
+        />
+
+        <input
+          type="Password"
+          placeholder="Enter your Password"
+          className="p-4 my-4 w-full rounded-lg bg-gray-900"
+        />
+        <button className="bg-red-700 w-full h-12 p-4 my-6 text-center rounded-lg">
+          {isSignIn ? "Sign In" : "Sign Up"}
+        </button>
+        <p className="my-6 cursor-pointer" onClick={handleSignUp}>
+          {isSignIn
+            ? "New to Netflix? Sign up now"
+            : "Already registered Sign In Now"}
+        </p>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
