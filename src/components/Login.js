@@ -1,8 +1,22 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { validateData } from "../utils/validateData";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errMessage, setErrMessage] = useState("");
+  const email = useRef("");
+  const password = useRef("");
+  const name = useRef("");
+
+  const handleButtonClick = () => {
+    const message = validateData(
+      email.current.value,
+      password.current.value,
+      name.current.value
+    );
+    setErrMessage(message);
+  };
   const handleSignUp = () => {
     setIsSignIn(!isSignIn);
   };
@@ -17,7 +31,7 @@ const Login = () => {
       </div>
       <form
         action=""
-        onClick={(e) => e.target.preventDefault}
+        onSubmit={(e) => e.preventDefault()}
         className="bg-black absolute  w-4/12 p-12 my-32 mx-auto left-0 right-0 opacity-80 text-white rounded-lg"
       >
         <h1 className="font-bold text-3xl ">
@@ -25,23 +39,30 @@ const Login = () => {
         </h1>
         {!isSignIn && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full rounded-lg  bg-gray-900"
           />
         )}
         <input
+          ref={email}
           type="text"
           placeholder="Email or mobile number"
           className="p-4 my-4 w-full rounded-lg  bg-gray-900"
         />
 
         <input
+          ref={password}
           type="Password"
           placeholder="Enter your Password"
           className="p-4 my-4 w-full rounded-lg bg-gray-900"
         />
-        <button className="bg-red-700 w-full h-12 p-4 my-6 text-center rounded-lg">
+        <p className="text-red-700 font-bold">{errMessage}</p>
+        <button
+          className="bg-red-700 w-full h-12 p-4 my-6 text-center rounded-lg"
+          onClick={handleButtonClick}
+        >
           {isSignIn ? "Sign In" : "Sign Up"}
         </button>
         <p className="my-6 cursor-pointer" onClick={handleSignUp}>
