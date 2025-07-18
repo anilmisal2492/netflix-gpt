@@ -5,20 +5,21 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import {auth} from "../utils/firebase"
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errMessage, setErrMessage] = useState("");
-  const email = useRef("");
-  const password = useRef("");
-  const name = useRef("");
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
 
   const handleButtonClick = () => {
+    const nameValue = name.current ? name.current.value : "";
     const message = validateData(
       email.current.value,
       password.current.value,
-      name.current.value
+      // nameValue
     );
     setErrMessage(message);
     if (message) return;
@@ -42,12 +43,16 @@ const Login = () => {
           setErrMessage(errorCode + "-" + errorMessage);
         });
     } else {
-      signInWithEmailAndPassword(auth, email, password)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           // ...
-          console.log(user)
+          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
