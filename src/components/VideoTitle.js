@@ -2,8 +2,8 @@ import React from "react";
 
 const VideoTitle = ({ title, description }) => {
   return (
-    <div className="py-24">
-      <div className="p-3">
+    <div className="py-24 absolute">
+      <div className="p-3 text-white">
         <h1 className="text-3xl my-6 ">{title}</h1>
         <p className="w-6/12">{description}</p>
       </div>
